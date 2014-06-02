@@ -1,6 +1,6 @@
-@IndexCtrl = ($scope, $location, $http) ->
-  $scope.data =
-    posts: [{title: 'Loading posts...', contents: ''}]
+@IndexCtrl = ($scope, $location, $http, postData) ->
+
+  $scope.data = postData.data
 
   loadPosts = ->
     $http.get('./posts.json').success( (data) ->
@@ -10,8 +10,7 @@
       console.error('Failed to load posts.')
     )
 
-  loadPosts()
+  postData.loadPosts()
 
   $scope.viewPost = (postId) ->
     $location.url('/post/'+postId)
-

@@ -4,6 +4,7 @@
 
 #= require_self
 #= require_tree ./controllers/main
+#= require_tree ./services/main
 
 # Creates new Angular module called 'Blog'
 Blog = angular.module('Blog', ['ngRoute'])
