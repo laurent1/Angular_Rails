@@ -17,3 +17,4 @@
 //= require bootstrap.min
 //= require angular.min
 //= require main
+//= require angular-route

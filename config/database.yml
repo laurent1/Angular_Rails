@@ -37,5 +37,5 @@ development:
   database: angular
   pool: 5
   username: root
-  password:
+  password: thanh05
   socket: /tmp/mysql.sock
