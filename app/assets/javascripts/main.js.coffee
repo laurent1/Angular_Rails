@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 #= require_self
-#= require_tree ./Controllers/main
+#= require_tree ./controllers/main
 
 # Creates new Angular module called 'Blog'
 Blog = angular.module('Blog', ['ngRoute'])
