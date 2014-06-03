@@ -3,6 +3,7 @@
   $scope.data =
     postData: postData.data
     currentPost:
+      id: 0
       title: 'Loading...'
       contents: ''
 
@@ -18,6 +19,7 @@
   # if data is already loaded)
   $scope.prepPostData = ->
     post = _.findWhere(postData.data.posts, { id: parseInt($scope.data.postId) })
+    $scope.data.currentPost.id = $scope.data.postId
     $scope.data.currentPost.title = post.title
     $scope.data.currentPost.contents = post.contents
 
@@ -31,6 +33,12 @@
   $scope.editPost = ->
     post = _.findWhere(postData.data.posts, { id: parseInt($scope.data.postId) })
     $location.url('/post/edit/'+post.id)
+
+  $scope.removePost = ->
+    post = _.findWhere(postData.data.posts, { id: parseInt($scope.data.postId) })
+    $scope.data.currentPost.title = "Deleted"
+    $scope.data.currentPost.contents = "This post has been deleted"
+    postData.deletePost($scope.data.currentPost.id)
 
 
 @PostCtrl.$inject = ['$scope', '$routeParams', '$location', '$q', 'postData']

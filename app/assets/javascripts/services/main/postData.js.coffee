@@ -62,6 +62,20 @@ angular.module('Blog').factory('postData', ['$http', ($http) ->
 
     return true
 
+  postData.deletePost = (post_id) ->
+    params =
+      id: post_id
+
+    $http.delete('./posts/'+post_id+'.json', params)
+      .success (data) ->
+        postData.data.posts = _.reject(postData.data.posts, (el) -> return el.id is post_id)
+        postData.isLoaded = false
+        console.log('Successfully deleted post.')
+      .error ->
+        console.error('Failed to delete post.')
+
+    return true
+
   return postData
 
 ])

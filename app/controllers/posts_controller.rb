@@ -43,4 +43,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    delete_post = Post.find_by_id(params[:id])
+
+    if !delete_post.blank?
+      delete_post.destroy!
+    else
+      render "public/422", :status => 422
+      return
+    end
+
+    respond_with(delete_post) do |format|
+      format.json { render :json => delete_post.as_json }
+    end
+  end
+
 end
