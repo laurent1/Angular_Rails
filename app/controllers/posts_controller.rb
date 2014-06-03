@@ -26,4 +26,21 @@ class PostsController < ApplicationController
     end
   end
 
+  def update
+    edit_post = Post.find_by_id(params[:edit_post][:id])
+    edit_post.title = params[:edit_post][:title][0...250]
+    edit_post.contents = params[:edit_post][:contents]
+
+    if edit_post.valid?
+      edit_post.save!
+    else
+      render "public/422", :status => 422
+      return
+    end
+
+    respond_with(edit_post) do |format|
+      format.json { render :json => edit_post.as_json }
+    end
+  end
+
 end

@@ -34,11 +34,31 @@ angular.module('Blog').factory('postData', ['$http', ($http) ->
 
     $http.post('./posts.json', data)
       .success (data) ->
-        # Add new post to array of posts
         postData.data.posts.push(data)
         console.log('Successfully created post.')
       .error ->
         console.error('Failed to create new post.')
+
+    return true
+
+  postData.editPost = (updatePost) ->
+    if updatePost.editPostTitle == '' or updatePost.editPostContents == ''
+      alert('Neither the Title nor the Body are allowed to be left blank.')
+      return false
+
+    data =
+      edit_post:
+        id: updatePost.editPostId
+        title: updatePost.editPostTitle
+        contents: updatePost.editPostContents
+
+    $http.put('./posts/'+updatePost.editPostId+'.json', data)
+      .success (data) ->
+        postData.data.posts.push(data)
+        postData.isLoaded = false
+        console.log('Successfully updated post.')
+      .error ->
+        console.error('Failed to update new post.')
 
     return true
 

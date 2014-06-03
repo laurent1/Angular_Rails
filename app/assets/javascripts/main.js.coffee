@@ -12,8 +12,8 @@ Blog = angular.module('Blog', ['ngRoute'])
     $routeProvider
       .when('/post/new', { templateUrl: '../assets/mainCreatePost.html', controller: 'CreatePostCtrl'})
       .when('/post/:postId', { templateUrl: '../assets/mainPost.html', controller: 'PostCtrl'})
+      .when('/post/edit/:postId', { templateUrl: '../assets/mainEditPost.html', controller: 'EditPostCtrl' } )
       .otherwise({ templateUrl: '../assets/mainIndex.html', controller: 'IndexCtrl'})
-
   ])
   .config(["$httpProvider", (provider) ->
     provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')

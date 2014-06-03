@@ -28,5 +28,9 @@
   # Provide deferred promise chain to the loadPosts function
   postData.loadPosts(@deferred)
 
+  $scope.editPost = ->
+    post = _.findWhere(postData.data.posts, { id: parseInt($scope.data.postId) })
+    $location.url('/post/edit/'+post.id)
+
 
 @PostCtrl.$inject = ['$scope', '$routeParams', '$location', '$q', 'postData']
