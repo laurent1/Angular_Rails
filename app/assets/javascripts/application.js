@@ -18,3 +18,4 @@
 //= require angular.min
 //= require main
 //= require angular-route
+//= require angular-route-segment.min

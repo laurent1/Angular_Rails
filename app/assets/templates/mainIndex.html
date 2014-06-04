@@ -7,10 +7,5 @@
   </div>
 </div>
 
-<div class="container" style="margin-top: 40px">
-  <h1 class="text-center">My blog</h1>
-  <div class="row" ng-repeat="post in data.posts">
-      <h2><a ng-click="viewPost(post.id)">{{ post.title }}</a></h2>
-      <p>{{ post.contents }}</p>
-  </div>
+<div app-view-segment="1" style="margin:60px;">
 </div>

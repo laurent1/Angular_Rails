@@ -7,13 +7,33 @@
 #= require_tree ./services/main
 
 # Creates new Angular module called 'Blog'
-Blog = angular.module('Blog', ['ngRoute'])
-  .config(['$routeProvider', ($routeProvider) ->
-    $routeProvider
-      .when('/post/new', { templateUrl: '../assets/mainCreatePost.html', controller: 'CreatePostCtrl'})
-      .when('/post/:postId', { templateUrl: '../assets/mainPost.html', controller: 'PostCtrl'})
-      .when('/post/edit/:postId', { templateUrl: '../assets/mainEditPost.html', controller: 'EditPostCtrl' } )
-      .otherwise({ templateUrl: '../assets/mainIndex.html', controller: 'IndexCtrl'})
+Blog = angular.module('Blog', ['ngRoute', 'route-segment', 'view-segment'])
+  .config(['$routeSegmentProvider', ($routeSegmentProvider) ->
+    $routeSegmentProvider
+      .when('/',                  'index')
+      .when('/p',                 'index.postList')
+      .when('/post/new',          'index.createPost')
+      .when('/post/:postId',      'index.post')
+      .when('/post/edit/:postId', 'index.editPost')
+
+    $routeSegmentProvider.segment "index",
+      templateUrl: "../assets/mainIndex.html"
+      controller: IndexCtrl
+
+    $routeSegmentProvider.within("index").segment "postList",
+      templateUrl: "../assets/mainPostList.html"
+
+    $routeSegmentProvider.within("index").segment "post",
+      templateUrl: "../assets/mainPost.html"
+      controller: PostCtrl
+
+    $routeSegmentProvider.within("index").segment "createPost",
+      templateUrl: "../assets/mainCreatePost.html"
+      controller: CreatePostCtrl
+
+    $routeSegmentProvider.within("index").segment "editPost",
+      templateUrl: "../assets/mainEditPost.html"
+      controller: EditPostCtrl
   ])
   .config(["$httpProvider", (provider) ->
     provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
