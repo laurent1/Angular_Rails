@@ -7,7 +7,10 @@
       title: 'Loading...'
       contents: ''
 
-  $scope.data.postId = $routeParams.postId
+  # $scope.getMainBody = ->
+  #   "/assets/mainPost.html"
+  $scope.init = (id) ->
+    $scope.data.postId = id
 
   $scope.navNewPost = ->
     $location.url('/post/new')
@@ -38,7 +41,13 @@
     post = _.findWhere(postData.data.posts, { id: parseInt($scope.data.postId) })
     $scope.data.currentPost.title = "Deleted"
     $scope.data.currentPost.contents = "This post has been deleted"
+    prev_size = postData.data.posts.length
     postData.deletePost($scope.data.currentPost.id)
+    post_size = postData.data.posts.length
+    if prev_size isnt post_size
+      $scope.navHome()
+    else
+      alert("Failed to delete post.")
 
 
 @PostCtrl.$inject = ['$scope', '$routeParams', '$location', '$q', 'postData']

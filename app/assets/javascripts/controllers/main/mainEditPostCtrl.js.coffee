@@ -17,7 +17,6 @@
     $location.url('/')
 
   $scope.updatePost = ->
-    console.log($scope.formData);
     postData.editPost($scope.formData)
 
   $scope.removePost = ->

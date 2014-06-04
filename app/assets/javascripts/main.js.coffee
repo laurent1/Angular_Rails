@@ -5,13 +5,14 @@
 #= require_self
 #= require_tree ./controllers/main
 #= require_tree ./services/main
+#= require_tree ./services/global
 
 # Creates new Angular module called 'Blog'
 Blog = angular.module('Blog', ['ngRoute'])
   .config(['$routeProvider', ($routeProvider) ->
     $routeProvider
       .when('/post/new', { templateUrl: '../assets/mainCreatePost.html', controller: 'CreatePostCtrl'})
-      .when('/post/:postId', { templateUrl: '../assets/mainPost.html', controller: 'PostCtrl'})
+      # .when('/post/:postId', { reloadOnSearch: false, controller: 'PostCtrl'})
       .when('/post/edit/:postId', { templateUrl: '../assets/mainEditPost.html', controller: 'EditPostCtrl' } )
       .otherwise({ templateUrl: '../assets/mainIndex.html', controller: 'IndexCtrl'})
   ])

@@ -2,6 +2,12 @@
 
   $scope.data = postData.data
 
+  $scope.getMainPartial = ->
+    "/assets/mainPostList.html"
+
+  $scope.getPostPartial = ->
+    "/assets/mainPost.html"
+
   loadPosts = ->
     $http.get('./posts.json')
       .success (data) ->
@@ -13,9 +19,13 @@
   postData.loadPosts(null)
 
   $scope.viewPost = (postId) ->
-    $location.url('/post/'+postId)
+    $scope.postId = postId
+    $scope.getMainPartial = $scope.getPostPartial
+    $scope.getPostPartial()
+    # $location.url('/post/'+postId)
 
   $scope.navNewPost = ->
     $location.url('/post/new')
+
 
 @IndexCtrl.$inject = ['$scope', '$location', '$http', 'postData']

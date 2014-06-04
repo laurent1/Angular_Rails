@@ -3,6 +3,9 @@
   $scope.data = postData.data
   postData.loadPosts()
 
+  $scope.getMainNav = ->
+    "/assets/mainNav.html"
+
   $scope.formData =
     newPostTitle: ''
     newPostContents: ''

@@ -72,6 +72,7 @@ angular.module('Blog').factory('postData', ['$http', ($http) ->
         postData.isLoaded = false
         console.log('Successfully deleted post.')
       .error ->
+        alert('Failed to delete post.')
         console.error('Failed to delete post.')
 
     return true
