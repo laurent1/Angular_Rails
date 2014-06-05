@@ -1,4 +1,4 @@
-angular.module('Blog').factory('postData', ['$http', ($http) ->
+angular.module('Blog').factory('postData', ['$http', 'shareNav', ($http, shareNav) ->
 
   postData =
     data:
@@ -27,38 +27,42 @@ angular.module('Blog').factory('postData', ['$http', ($http) ->
       alert('Neither the Title nor the Body are allowed to be left blank.')
       return false
 
-    data =
+    params =
       new_post:
         title: newPost.newPostTitle
         contents: newPost.newPostContents
 
-    $http.post('./posts.json', data)
+    $http.post('./posts.json', params)
       .success (data) ->
+        shareNav.viewPost(data.id)
         postData.data.posts.push(data)
         console.log('Successfully created post.')
       .error ->
-        console.error('Failed to create new post.')
+        alert('Failed to create new post.')
 
     return true
+
 
   postData.editPost = (updatePost) ->
     if updatePost.editPostTitle == '' or updatePost.editPostContents == ''
       alert('Neither the Title nor the Body are allowed to be left blank.')
       return false
 
-    data =
+    params =
       edit_post:
         id: updatePost.editPostId
         title: updatePost.editPostTitle
         contents: updatePost.editPostContents
 
-    $http.put('./posts/'+updatePost.editPostId+'.json', data)
+    $http.put('./posts/'+updatePost.editPostId+'.json', params)
       .success (data) ->
+        shareNav.viewPost(data.id)
         postData.data.posts.push(data)
         postData.isLoaded = false
+        postData.loadPosts()
         console.log('Successfully updated post.')
       .error ->
-        console.error('Failed to update new post.')
+        console.error('Failed to update post.')
 
     return true
 
@@ -70,6 +74,7 @@ angular.module('Blog').factory('postData', ['$http', ($http) ->
       .success (data) ->
         postData.data.posts = _.reject(postData.data.posts, (el) -> return el.id is post_id)
         postData.isLoaded = false
+        postData.loadPosts()
         console.log('Successfully deleted post.')
       .error ->
         console.error('Failed to delete post.')

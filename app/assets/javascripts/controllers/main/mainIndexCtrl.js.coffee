@@ -1,4 +1,4 @@
-@IndexCtrl = ($scope, $location, $http, postData) ->
+@IndexCtrl = ($scope, $location, $http, postData, shareNav) ->
 
   $scope.data = postData.data
 
@@ -12,10 +12,14 @@
 
   postData.loadPosts(null)
 
+  $scope.navHome = ->
+    shareNav.navHome()
+
   $scope.viewPost = (postId) ->
-    $location.url('/post/'+postId)
+    shareNav.viewPost(postId)
 
   $scope.navNewPost = ->
-    $location.url('/post/new')
+    shareNav.navNewPost()
 
-@IndexCtrl.$inject = ['$scope', '$location', '$http', 'postData']
+
+@IndexCtrl.$inject = ['$scope', '$location', '$http', 'postData', 'shareNav']

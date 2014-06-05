@@ -7,12 +7,6 @@
     newPostTitle: ''
     newPostContents: ''
 
-  $scope.navNewPost = ->
-    $location.url('/post/new')
-
-  $scope.navHome = ->
-    $location.url('/')
-
   $scope.createPost = ->
     postData.createPost($scope.formData)
 

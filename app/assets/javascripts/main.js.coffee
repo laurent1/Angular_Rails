@@ -11,7 +11,7 @@ Blog = angular.module('Blog', ['ngRoute', 'route-segment', 'view-segment'])
   .config(['$routeSegmentProvider', ($routeSegmentProvider) ->
     $routeSegmentProvider
       .when('/',                  'index')
-      .when('/p',                 'index.postList')
+      .when('/',                  'index.postList')
       .when('/post/new',          'index.createPost')
       .when('/post/:postId',      'index.post')
       .when('/post/edit/:postId', 'index.editPost')

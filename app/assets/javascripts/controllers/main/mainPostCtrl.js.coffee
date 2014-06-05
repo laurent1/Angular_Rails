@@ -7,13 +7,7 @@
       title: 'Loading...'
       contents: ''
 
-  $scope.data.postId = $routeParams.postId
-
-  $scope.navNewPost = ->
-    $location.url('/post/new')
-
-  $scope.navHome = ->
-    $location.url('/')
+  $scope.data.postId = $routeParams.postId if typeof($routeParams.postId) isnt "undefined"
 
   # This will be run once the loadPosts successfully completes (or immediately
   # if data is already loaded)
@@ -36,9 +30,9 @@
 
   $scope.removePost = ->
     post = _.findWhere(postData.data.posts, { id: parseInt($scope.data.postId) })
-    $scope.data.currentPost.title = "Deleted"
-    $scope.data.currentPost.contents = "This post has been deleted"
     postData.deletePost($scope.data.currentPost.id)
+    $scope.data.currentPost.title = ""
+    $scope.data.currentPost.contents = "This post has been deleted"
 
 
 @PostCtrl.$inject = ['$scope', '$routeParams', '$location', '$q', 'postData']

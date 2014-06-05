@@ -10,12 +10,6 @@
     editPostContents: post.contents
     editPostId: post.id
 
-  $scope.navNewPost = ->
-    $location.url('/post/new')
-
-  $scope.navHome = ->
-    $location.url('/')
-
   $scope.updatePost = ->
     console.log($scope.formData);
     postData.editPost($scope.formData)
